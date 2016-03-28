@@ -97,9 +97,9 @@ module ServiceNow
 
         private
             def self.check_configuration
-                if @root_url.nil? || @username.nil? || @password.nil?
-                    raise "SN::Error: You have not configured yet, please run ServiceNow::Configuration.configure() first"
-                end
+#                if @root_url.nil? || @username.nil? || @password.nil?
+#                    raise "SN::Error: You have not configured yet, please run ServiceNow::Configuration.configure() first"
+#                end
             end
     end
 end
