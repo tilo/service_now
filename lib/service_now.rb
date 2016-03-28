@@ -8,7 +8,16 @@ require "uri"
 
 
 module ServiceNow
-    $root_url = nil
-    $username = nil
-    $password = nil
+  @@root_url = nil
+  @@username = nil
+  @@password = nil
+  def root_url
+    @@root_url
+  end
+  def username
+    @@username
+  end
+  def password
+    @@password
+  end
 end
