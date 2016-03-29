@@ -11,15 +11,15 @@ module ServiceNow
 
         def self.get_resource(query_hash = {}, displayvalue = false, table)
             # to be filled in
-            RestClient::Resource.new(URI.escape(Settings.root_url + "/#{table}.do?JSONv2&sysparm_action=getRecords&sysparm_query=#{hash_to_query(query_hash)}&displayvalue=#{displayvalue}"), Settings.username, Settings.password)
+            RestClient::Resource.new(URI.escape(Settings.url + "/#{table}.do?JSONv2&sysparm_action=getRecords&sysparm_query=#{hash_to_query(query_hash)}&displayvalue=#{displayvalue}"), Settings.username, Settings.password)
         end
 
         def self.post_resource(table)
-            RestClient::Resource.new(URI.escape(Settings.root_url + "/#{table}.do?JSONv2&sysparm_action=insert"), Settings.username, Settings.password)
+            RestClient::Resource.new(URI.escape(Settings.url + "/#{table}.do?JSONv2&sysparm_action=insert"), Settings.username, Settings.password)
         end
 
         def self.update_resource(incident_number, table)
-           RestClient::Resource.new(URI.escape(Settings.root_url + "/#{table}.do?JSONv2&sysparm_query=number=#{incident_number}&sysparm_action=update"), Settings.username, Settings.password)
+           RestClient::Resource.new(URI.escape(Settings.url + "/#{table}.do?JSONv2&sysparm_query=number=#{incident_number}&sysparm_action=update"), Settings.username, Settings.password)
         end
 
         private
