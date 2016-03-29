@@ -9,15 +9,15 @@ module ServiceNow
             @attributes
         end
 
-        def self.find(netid)
+        def self.find(sys_id)  # should take a query hash directly
             query_hash = {}
-            query_hash[:user_name] = netid
+            query_hash[:user_name] = sys_id
             response = Configuration.get_resource(query_hash = query_hash, table = "sys_user").get()
             hash = JSON.parse(response, { :symbolize_names => true })
             # there should be only one
             user = User.new(hash[:records][0])
             if user.attributes.nil?
-                puts "SN::Alert: No user with netID: #{netid} found"
+                puts "SN::Alert: No user with sys_id: #{sys_id} found"
                 return User.new
             else
                 user
