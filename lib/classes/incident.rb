@@ -8,7 +8,6 @@ module ServiceNow
         end
 
         def initialize(attributes = {}, saved_on_sn = false, internal_call = false)
-            Incident.check_configuration
             symbolized_attributes = Hash[attributes.map{|k, v| [k.to_sym, v]}]
             if !symbolized_attributes[:number].nil? && !internal_call # allow setting INC number if it's called internally
                 raise "SN::ERROR: You are not allowed to set INC Number manually, the server will take care of that"

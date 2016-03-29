@@ -9,9 +9,7 @@ module ServiceNow
             @attributes
         end
 
-        def self.find(sys_id)  # should take a query hash directly
-            query_hash = {}
-            query_hash[:user_name] = sys_id
+        def self.find(query_hash={})  # should take a query hash directly
             response = Configuration.get_resource(query_hash = query_hash, table = "sys_user").get()
             hash = JSON.parse(response, { :symbolize_names => true })
             # there should be only one
