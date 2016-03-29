@@ -10,7 +10,6 @@ module ServiceNow
         end
 
         def self.find(netid)
-            User.check_configuration
             query_hash = {}
             query_hash[:user_name] = netid
             response = Configuration.get_resource(query_hash = query_hash, table = "sys_user").get()
@@ -26,7 +25,6 @@ module ServiceNow
         end
 
         def self.find_by_sys_id(sys_id)
-            User.check_configuration
             query_hash = {}
             query_hash[:sys_id] = sys_id
             response = Configuration.get_resource(query_hash = query_hash, table = "sys_user").get()
@@ -41,7 +39,6 @@ module ServiceNow
         end
 
         def self.find_by_name(name)
-            User.check_configuration
             query_hash = {}
             query_hash[:name] = name
             response = Configuration.get_resource(query_hash = query_hash, table = "sys_user").get()
@@ -60,11 +57,5 @@ module ServiceNow
             @attributes[method_name.to_sym]
         end
 
-        private
-            def self.check_configuration
-#                if @root_url.nil? || @username.nil? || @password.nil?
-#                    raise "SN::Error: You have not configured yet, please run ServiceNow::Configuration.configure() first"
-#                end
-            end
     end
 end

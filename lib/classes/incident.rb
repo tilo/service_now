@@ -51,6 +51,8 @@ module ServiceNow
                 response = Configuration.update_resource(self.number, table = "incident").post(self.attributes.to_json)
             end
             hash = JSON.parse(response, { :symbolize_names => true })
+            puts "RESULT: #{hash.inspect}"
+
             # this is the object
             # and there is always only one
             # since we're creating or updating
@@ -64,7 +66,6 @@ module ServiceNow
         end
 
         def self.find(inc_number)
-            Incident.check_configuration
             inc_string = inc_number.to_s.match(/[123456789]+\d*$/).to_s
             if inc_string.length > 7
                 raise "SN::Error: invalid Incident number"
@@ -84,7 +85,6 @@ module ServiceNow
         end
 
         def self.where(query_hash = {})
-            Incident.check_configuration
             response = Configuration.get_resource(query_hash, table = "incident").get();
             hash = JSON.parse(response, { :symbolize_names => true })
             array_of_records = hash[:records]
@@ -95,11 +95,5 @@ module ServiceNow
             array_of_inc
         end
 
-        private
-            def self.check_configuration
-#                if @root_url.nil? || @username.nil? || @password.nil?
-#                    raise "SN::Error: You have not configured yet, please run ServiceNow::Configuration.configure() first"
-#                end
-            end
     end
 end

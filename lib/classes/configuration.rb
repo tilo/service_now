@@ -1,24 +1,25 @@
 module ServiceNow
     class Configuration
 
+
         def self.configure(auth_hash = {})
-            @root_url = auth_hash[:sn_url].sub(/(\/)+$/, '') #remove trailing slash if there are any
-            @username = auth_hash[:sn_username]
-            @password = auth_hash[:sn_password]
+            Settings.url = auth_hash[:url].sub(/(\/)+$/, '') #remove trailing slash if there are any
+            Settings.username = auth_hash[:username]
+            Settings.password = auth_hash[:password]
             "SN::Success: Configuration successful"
         end
 
         def self.get_resource(query_hash = {}, displayvalue = false, table)
             # to be filled in
-            RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_action=getRecords&sysparm_query=#{hash_to_query(query_hash)}&displayvalue=#{displayvalue}"), @username, @password)
+            RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_action=getRecords&sysparm_query=#{hash_to_query(query_hash)}&displayvalue=#{displayvalue}"), Settings.username, Settings.password)
         end
 
         def self.post_resource(table)
-            RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_action=insert"), @username, @password)
+            RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_action=insert"), Settings.username, Settings.password)
         end
 
         def self.update_resource(incident_number, table)
-           RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_query=number=#{incident_number}&sysparm_action=update"), @username, @password)
+           RestClient::Resource.new(URI.escape(@root_url + "/#{table}.do?JSONv2&sysparm_query=number=#{incident_number}&sysparm_action=update"), Settings.username, Settings.password)
         end
 
         private

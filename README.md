@@ -1,5 +1,7 @@
 # ServiceNow
 
+This is a fork from the [YaleSTC/service_now](https://github.com/YaleSTC/service_now) repository, which is significantly changed and not backwards-compatible.
+
 This Gem uses [Service Now's REST Api](http://wiki.servicenow.com/index.php?title=REST_API). It has only been used with reading & creating incidents so far.
 
 ## Installation
@@ -20,7 +22,7 @@ Or install it yourself as:
 
 ###Finding an Incident
 ```ruby
-  ServiceNow::Configuration.configure(:sn_url => ENV['SN_INSTANCE'], :sn_username => ENV['SN_USERNAME'], :sn_password => ENV['SN_PASSWORD'])
+  ServiceNow::Configuration.configure(:url => ENV['SN_INSTANCE'], :username => ENV['SN_USERNAME'], :password => ENV['SN_PASSWORD'])
   inc_number = "INC0326578"
   inc = ServiceNow::Incident.find(inc_number)
 ```
@@ -34,9 +36,9 @@ Or install it yourself as:
 ###Creating an Incident
 ```ruby
 params = {
-    netid: 'csw3',
+    sys_id: 'csw3',
     name: 'Casey Watts',
-    location: 'Berkeley College',
+    location: 'Any Company',
     avg_bandwidth: '1mbps',
     comment: 'just seems slow'
     mac: 'AA:BB:CC:DD:EE:FF'
@@ -46,8 +48,8 @@ def create_incident(params)
   ServiceNow::Configuration.configure(:sn_url => ENV['SN_INSTANCE'], :sn_username => ENV['SN_USERNAME'], :sn_password => ENV['SN_PASSWORD'])
   inc = ServiceNow::Incident.new
   inc.short_description = "Problem With Wifi"
-  inc.description = "netid: #{params[:netid]}\nname: #{params[:name]}\nlocation: #{params[:location]}\nbandwidth: #{params[:avg_bandwidth]}\ncomment: #{params[:comments]}\nmac: #{params[:mac]}"
-  inc.caller_id = ServiceNow::User.find(params[:netid]).sys_id
+  inc.description = "sys_id: #{params[:sys_id]}\nname: #{params[:name]}\nlocation: #{params[:location]}\nbandwidth: #{params[:avg_bandwidth]}\ncomment: #{params[:comments]}\nmac: #{params[:mac]}"
+  inc.caller_id = ServiceNow::User.find(params[:sys_id]).sys_id
   inc.save!
 end
 ```

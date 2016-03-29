@@ -8,8 +8,5 @@ require "uri"
 
 
 module ServiceNow
-  attr_accessor :root_url, :username, :password
-  @root_url = nil
-  @username = nil
-  @password = nil
+  Settings = OpenStruct.new( :url => ENV['SN_INSTANCE'], :username => ENV['SN_USERNAME'], :password => ENV['SN_PASSWORD'] )
 end
