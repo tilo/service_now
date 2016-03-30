@@ -8,5 +8,5 @@ require "uri"
 
 
 module ServiceNow
-  Settings = OpenStruct.new( :url => ENV['SN_INSTANCE'], :username => ENV['SN_USERNAME'], :password => ENV['SN_PASSWORD'] )
+  Settings = OpenStruct.new( :url => ENV['SN_INSTANCE'].sub(/(\/)+$/, '') rescue nil  , :username => ENV['SN_USERNAME'], :password => ENV['SN_PASSWORD'] )
 end

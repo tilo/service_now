@@ -1,9 +1,8 @@
 module ServiceNow
     class Configuration
 
-
         def self.configure(auth_hash = {})
-            Settings.url = auth_hash[:url].sub(/(\/)+$/, '') #remove trailing slash if there are any
+            Settings.url = auth_hash[:url].sub(/(\/)+$/, '') rescue nil #remove trailing slash if there are any
             Settings.username = auth_hash[:username]
             Settings.password = auth_hash[:password]
             "SN::Success: Configuration successful"
